@@ -3,10 +3,9 @@ import email
 from unicodedata import name
 from flask import Flask, request, render_template, url_for, redirect
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__, template_folder="templates")
 
 formDataList = []
-
 
 @app.route("/success")
 def FormData():
