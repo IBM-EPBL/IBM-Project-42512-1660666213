@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="table-content">
+        {% for data in (products) %}
+            <div class="table-row">		
+                <div class="table-data">
+                    <img style="height: 100px;width : 100px" src={{ data.image }} alt={{data.name}}>
+                </div>
+                <div class="table-data-id">{{ data.id }}</div>
+                <div class="table-data">{{ data.name }}</div>
+                <div class="table-data">{{ data.descr }}</div>
+                <div class="table-data">{{ data.price }}</div>
+                <div class="table-data">{{ data.category }}</div>
+                <div class="table-data">{{ data.quantity }}</div>
+
+                <input type="number" name="quan" class="quan {{loop.index}}">
+
+                <button class="cart_btn" onclick="check('{{data.id}}','{{loop.index}}','cart')"> Add To Cart </button>
+                <button class="wish_btn" onclick=""> WishList </button>
+                <button class="buy_btn"> Buy Now </button>
+            </div>
+            <br>
+            <br>
+        {% endfor %}
+    </div>	
+    <script src="/static/js/index.js"></script>
+</body>
+</html>
