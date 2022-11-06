@@ -7,22 +7,23 @@
     <title>Document</title>
 </head>
 <body>
+    {% set uid = session['uid'] %}
     <div class="table-content">
         {% for data in (products) %}
             <div class="table-row">		
                 <div class="table-data">
-                    <img style="height: 100px;width : 100px" src={{ data.image }} alt={{data.name}}>
+                    <img style="height: 100px;width : 100px" src={{ data[3] }} alt={{data.name}}>
                 </div>
-                <div class="table-data-id">{{ data.id }}</div>
-                <div class="table-data">{{ data.name }}</div>
-                <div class="table-data">{{ data.descr }}</div>
-                <div class="table-data">{{ data.price }}</div>
-                <div class="table-data">{{ data.category }}</div>
-                <div class="table-data">{{ data.quantity }}</div>
+                <div class="table-data-id">{{ loop.index }}</div>
+                <div class="table-data">{{ data[1] }}</div>
+                <div class="table-data">{{ data[2] }}</div>
+                <div class="table-data">{{ data[4] }}</div>
+                <div class="table-data">{{ data[6] }}</div>
+                <div class="table-data">{{ data[5] }}</div>
 
                 <input type="number" name="quan" class="quan {{loop.index}}">
 
-                <button class="cart_btn" onclick="check('{{data.id}}','{{loop.index}}','cart')"> Add To Cart </button>
+                <button class="cart_btn" onclick="check('{{data[1]}}','{{data[3]}}','{{data[4]}}','{{loop.index}}','{{data[6]}}', 0,'{{data[5]}}','{{uid}}')"> Add To Cart </button>
                 <button class="wish_btn" onclick=""> WishList </button>
                 <button class="buy_btn"> Buy Now </button>
             </div>

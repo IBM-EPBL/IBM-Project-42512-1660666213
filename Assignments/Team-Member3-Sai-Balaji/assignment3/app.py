@@ -3,13 +3,10 @@ from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 import ibm_boto3
 from ibm_botocore.client import Config, ClientError
-from dotenv import load_dotenv
-load_dotenv()
 
-COS_ENDPOINT = os.environ.get("COS_ENDPOINT")
-COS_API_KEY_ID = os.environ.get("COS_API_KEY_ID")
-COS_INSTANCE_CRN = os.environ.get("COS_INSTANCE_CRN")
-
+COS_ENDPOINT = "https://s3.jp-tok.cloud-object-storage.appdomain.cloud" 
+COS_API_KEY_ID = "T-NC4U3lQbvp0D0BKO30i65LGt-DDVBbRjjc9Ln8WWw4" 
+COS_INSTANCE_CRN = "crn:v1:bluemix:public:cloud-object-storage:global:a/51776cc89a5d4278a626571bfea117fb:9fc3c795-01fd-429c-a84a-891a142a9a14::" 
 
 cos = ibm_boto3.resource("s3",
     ibm_api_key_id=COS_API_KEY_ID,
@@ -62,10 +59,6 @@ def upload():
 
 @app.route("/", methods = ['GET'])
 def Index():
-    integrationID=os.environ.get("integrationID")
-    region=os.environ.get("region")
-    serviceInstanceID=os.environ.get("serviceInstanceID")
-
     try:
         file = cos.Object("imagestoring123", "style.css").get()
         fs = file['Body'].read().decode("utf-8")
@@ -83,11 +76,7 @@ def Index():
         msg = 'Database Server Error'
     except Exception as e:
         msg = 'Internal Server Error'
-    return render_template('index.html', files = filesKey, msg = msg,
-    integrationID =integrationID,
-    region = region,
-    serviceInstanceID = serviceInstanceID
-    )
+    return render_template('index.html', files = filesKey, msg = msg)
 
 
 

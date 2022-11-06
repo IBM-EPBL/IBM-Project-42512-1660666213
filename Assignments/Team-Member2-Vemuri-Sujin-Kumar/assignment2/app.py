@@ -1,6 +1,3 @@
-from crypt import methods
-import email
-from unicodedata import name
 from flask import Flask, request, render_template, url_for, redirect
 
 app = Flask(__name__, template_folder="templates")
