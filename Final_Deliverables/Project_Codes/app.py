@@ -1,5 +1,5 @@
 import os
-os.add_dll_directory('C:/Users/sloke/AppData/Local/Programs/Python/Python39/Lib/site-packages/clidriver/bin')
+os.add_dll_directory('C:/Users/SUJINKUMAR/AppData/Local/Programs/Python/Python310/Lib/site-packages/clidriver/bin')
 import json
 from flask_session import Session
 from flask import Flask, render_template, redirect, request, session, jsonify, url_for
