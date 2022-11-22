@@ -1,0 +1,97 @@
+{% include 'home.html' %}
+
+    {% set uid = session['uid'] %}
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="#"><i class="fa fa-home"></i> Home</a>
+                        <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Product Shop Section Begin -->
+    <section class="product-shop spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 order-1 order-lg-2">
+                    <div class="product-list">
+                        <div class="row">
+                            {% for data in (products) %}
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="product-item">
+                                        <div class="pi-pic">
+                                            <img src='{{ data[3] }}' alt="">
+                                            <div class="sale pp-sale">Sale</div>
+                                            <div class="icon">
+                                                <i class="icon_heart_alt"></i>
+                                            </div>
+                                            <ul>
+                                                <li class="w-icon active" onclick="check('{{data[1]}}','{{data[3]}}','{{data[4]}}','j0','{{data[6]}}', 0,'{{data[5]}}','{{uid}}')"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="pi-text">
+                                            <div class="catagory-name">{{ data[6] }}</div>
+                                            <a href="#">
+                                                <h5>{{ data[1] }}</h5>
+                                            </a>
+                                            <div class="product-price">
+                                                {{ data[4] }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+
+    <!-- Partner Logo Section Begin -->
+    <div class="partner-logo">
+        <div class="container">
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-1.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-2.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-3.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-4.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
+
+    <!-- Js Plugins -->
+    {% include 'footer.html' %}
+</body>
+
+</html>

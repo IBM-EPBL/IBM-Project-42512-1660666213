@@ -1,36 +1,253 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% set uid = session['uid'] %}
-    <div class="table-content">
-        {% for data in (products) %}
-            <div class="table-row">		
-                <div class="table-data">
-                    <img style="height: 100px;width : 100px" src={{ data[3] }} alt={{data.name}}>
+{% include 'home.html' %}
+
+
+{% set uid = session['uid'] %}
+    <!-- Hero Section Begin -->
+    <section class="hero-section">
+        <div class="hero-items owl-carousel">
+            <div class="single-hero-items set-bg" data-setbg="/static/img/hero-1.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <span>Bag,kids</span>
+                            <h1>Black friday</h1>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore</p>
+                            <a href="#" class="primary-btn">Shop Now</a>
+                        </div>
+                    </div>
+                    <div class="off-card">
+                        <h2>Sale <span>50%</span></h2>
+                    </div>
                 </div>
-                <div class="table-data-id">{{ loop.index }}</div>
-                <div class="table-data">{{ data[1] }}</div>
-                <div class="table-data">{{ data[2] }}</div>
-                <div class="table-data">{{ data[4] }}</div>
-                <div class="table-data">{{ data[6] }}</div>
-                <div class="table-data">{{ data[5] }}</div>
-
-                <input type="number" name="quan" class="quan {{loop.index}}">
-
-                <button class="cart_btn" onclick="check('{{data[1]}}','{{data[3]}}','{{data[4]}}','{{loop.index}}','{{data[6]}}', 0,'{{data[5]}}','{{uid}}')"> Add To Cart </button>
-                <button class="wish_btn" onclick=""> WishList </button>
-                <button class="buy_btn"> Buy Now </button>
             </div>
-            <br>
-            <br>
-        {% endfor %}
-    </div>	
-    <script src="/static/js/index.js"></script>
+            <div class="single-hero-items set-bg" data-setbg="/static/img/hero-2.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <span>Bag,kids</span>
+                            <h1>Black friday</h1>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore</p>
+                            <a href="#" class="primary-btn">Shop Now</a>
+                        </div>
+                    </div>
+                    <div class="off-card">
+                        <h2>Sale <span>50%</span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Banner Section Begin -->
+    <div class="banner-section spad">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="single-banner">
+                        <a href="{{url_for('shop')}}">
+                            <img src="/static/img/banner-1.jpg" alt="">
+                            <div class="inner-text">
+                                <h4>Men’s</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-banner">
+                        <a href="{{url_for('shop')}}">
+                            <img src="/static/img/banner-2.jpg" alt="">
+                            <div class="inner-text">
+                                <h4>Women’s</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-banner">
+                        <a href="{{url_for('shop')}}">
+                            <img src="/static/img/banner-3.jpg" alt="">
+                            <div class="inner-text">
+                                <h4>Kid’s</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Banner Section End -->
+
+    <!-- Women Banner Section Begin -->
+    <section class="women-banner spad">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="product-large set-bg" data-setbg="/static/img/products/women-large.jpg">
+                        <h2>Clothing</h2>
+                        <a href="#">Discover More</a>
+                    </div>
+                </div>
+                <div class="col-lg-8 offset-lg-1">
+                    <div class="filter-control">
+                        <ul>
+                            <li class="active">Clothings</li>
+                        </ul>
+                    </div>
+                    <div class="product-slider owl-carousel">
+                        {% for data in (products) %}
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img src='{{ data[3] }}' alt="" style="height: 100%; width: 100%;">
+                                    <div class="sale">Sale</div>
+                                    <div class="icon">
+                                        <i class="icon_heart_alt"></i>
+                                    </div>
+                                    <ul>
+                                        <li class="w-icon active" onclick="check('{{data[1]}}','{{data[3]}}','{{data[4]}}','j0','{{data[6]}}', 0,'{{data[5]}}','{{uid}}')"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    <div class="catagory-name">Coat</div>
+                                    <a href="#">
+                                        <h5>{{ data[1] }}</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        {{ data[4] }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Women Banner Section End -->
+
+    <!-- Instagram Section Begin -->
+    <div class="instagram-photo">
+        <div class="insta-item set-bg" data-setbg="/static/img/insta-1.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="img/insta-2.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="/static/img/insta-3.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="/static/img/insta-4.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="/static/img/insta-5.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+        <div class="insta-item set-bg" data-setbg="/static/img/insta-6.jpg">
+            <div class="inside-text">
+                <i class="ti-instagram"></i>
+                <h5><a href="#">colorlib_Collection</a></h5>
+            </div>
+        </div>
+    </div>
+    <!-- Instagram Section End -->
+
+    <!-- Latest Blog Section Begin -->
+    <section class="latest-blog spad">
+        <div class="container">
+            <div class="benefit-items">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="single-benefit">
+                            <div class="sb-icon">
+                                <img src="/static/img/icon-1.png" alt="">
+                            </div>
+                            <div class="sb-text">
+                                <h6>Free Shipping</h6>
+                                <p>For all order over 99$</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="single-benefit">
+                            <div class="sb-icon">
+                                <img src="/static/img/icon-2.png" alt="">
+                            </div>
+                            <div class="sb-text">
+                                <h6>Delivery On Time</h6>
+                                <p>If good have prolems</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="single-benefit">
+                            <div class="sb-icon">
+                                <img src="/static/img/icon-1.png" alt="">
+                            </div>
+                            <div class="sb-text">
+                                <h6>Secure Payment</h6>
+                                <p>100% secure payment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Latest Blog Section End -->
+
+    <!-- Partner Logo Section Begin -->
+    <div class="partner-logo">
+        <div class="container">
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/static/img/logo-carousel/logo-1.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-2.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/static/img/logo-carousel/logo-3.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/static/img/logo-carousel/logo-4.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/static/img/logo-carousel/logo-5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
+
+    {% include 'footer.html' %}
+    
 </body>
+
 </html>

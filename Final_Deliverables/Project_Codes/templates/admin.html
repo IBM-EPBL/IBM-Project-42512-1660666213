@@ -1,0 +1,59 @@
+{% include 'home.html' %}
+    <div class="conatiner d-flex justify-content-center align-items-center flex-row gap-2 my-4">
+        <div class="card">
+            <h5 class="card-header">Products</h5>
+            <div class="card-body">
+            <h5 class="card-title">Total Number Of Products</h5>
+            <h2 class="card-title fw-bold">{{proLen}}</h2>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-header">Users</h5>
+            <div class="card-body">
+            <h5 class="card-title">Total Number Of Users</h5>
+            <h2 class="card-title fw-bold">{{userLen}}</h2>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-header">Bought</h5>
+            <div class="card-body">
+            <h5 class="card-title">Total Number Of Products Bought</h5>
+            <h2 class="card-title fw-bold">{{boughtLen}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="cart-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th class="p-name">Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in account %}
+                    <tr>
+                        <td class="cart-pic first-row"><img src='{{ product[3] }}' alt=""></td>
+                        <td class="cart-title first-row">
+                            <h5>{{ product[1] }}</h5>
+                        </td>
+                        <td class="p-price first-row">{{ product[3] }}</td>
+                        <td class="qua-col first-row">
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="text" value='{{ product[5] }}'>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="total-price first-row">${{ product[4] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% include 'footer.html' %}
+</body>
+</html>

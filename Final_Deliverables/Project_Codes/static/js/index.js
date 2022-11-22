@@ -7,7 +7,7 @@ const quan = (id) => {
 }
 
 const check = async(name,image,price,quantity,category,type,productCount,jinja) => {
-  quantity = quan(parseInt(quantity))
+  quantity = quantity[0] === 'j' ? 1 : quan(parseInt(quantity))
   console.log(name,image,price,quantity,category,type,productCount,jinja)
   await fetch("/add-cart",{
     method : 'POST',
@@ -18,7 +18,7 @@ const check = async(name,image,price,quantity,category,type,productCount,jinja) 
   })
   .then(res => res.json())
   .then((data) => {
-    console.log(data)
+    alert("Successfully added to cart!")
   }).catch((e) => {
     console.log(e)
   })

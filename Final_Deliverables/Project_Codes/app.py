@@ -1,5 +1,5 @@
 import os
-os.add_dll_directory('C:/Users/SUJINKUMAR/AppData/Local/Programs/Python/Python310/Lib/site-packages/clidriver/bin')
+os.add_dll_directory('C:/Users/SUJINKUMAR/AppData/Local/Programs/Python/Python39/Lib/site-packages/clidriver/bin')
 import json
 from flask_session import Session
 from flask import Flask, render_template, redirect, request, session, jsonify, url_for
@@ -39,6 +39,7 @@ def Index():
     sql = 'select * from products'
     my_cursor.execute(sql)
     account = my_cursor.fetchall()
+    print(account)
     return render_template("index.html", products = account)
 
 @app.route("/signup",methods = ['POST','GET'])
@@ -60,6 +61,8 @@ def signup():
             
             if dicts:
                 return render_template("signup.html", msg = "user with username or email alreay exists.")
+            elif request.form['password'] != request.form['cpass']:
+                return render_template("signup.html", msg = "Password Mismatch.")
             else:
                 sql = "insert into users(username, email, password) values (?,?,?)"
                 ss = ibm_db.prepare(con, sql)
@@ -92,7 +95,7 @@ def login():
             print(dicts)
             if dicts:
                 session['user'] = username
-                session['time'] = datetime.now( )
+                session['time'] = datetime.now()
                 session['uid'] = dicts['ID']
 
             print(session)
@@ -105,7 +108,12 @@ def login():
         else:
             return render_template("login.html", msg = "")
 
-@app.route("/cart", methods = ['GET'])
+@app.route("/logout", methods = ['GET'])
+def logout():
+    session.clear()
+    return redirect(url_for('Index'))
+
+@app.route("/orders", methods = ['GET'])
 def cart():
     account = ''
     FLAG = True
@@ -115,12 +123,14 @@ def cart():
         params = (int(session.get("uid")),0)
         my_cursor.execute(sql,params)
         account = my_cursor.fetchall()
+        print(account)
     except Exception as e:
         FLAG = e
-    return render_template("cart.html", data = account, Flag = FLAG)
+    return render_template("shopping-cart.html", data = account, Flag = FLAG)
 
 @app.route("/add-cart", methods = ['POST'])
 def addCart():
+    print(session)
     req = json.loads(request.data)
     FLAG = True
 
@@ -147,12 +157,19 @@ def addCart():
         try:
             sql = "insert into data(name, image, price, quantity, category, type, iden) values (?,?,?,?,?,?,?)"
             ss = ibm_db.prepare(con, sql)
+            print("name")
             ibm_db.bind_param(ss, 1, req['name'])
+            print("image")
             ibm_db.bind_param(ss, 2, req['image'])
+            print("price")
             ibm_db.bind_param(ss, 3, req['price'])
+            print("quan")
             ibm_db.bind_param(ss, 4, int(req['quantity']))
+            print("cat")
             ibm_db.bind_param(ss, 5, req['category'])
+            print("typ")
             ibm_db.bind_param(ss, 6, int(req['type']))
+            print("jin")
             ibm_db.bind_param(ss, 7, int(req['jinja']))
 
             ibm_db.execute(ss)
@@ -172,7 +189,38 @@ def addCart():
 
         return jsonify({"success" : True})
 
-        
-    
+@app.route("/shop", methods = ["GET"])
+def shop():
+    my_cursor = pconn.cursor()
+    sql = 'select * from products'
+    my_cursor.execute(sql)
+    account = my_cursor.fetchall()
+    return render_template("shop.html", products = account)
+
+@app.route("/contact", methods = ["GET"])
+def contact():
+    return render_template("contact.html")
+
+@app.route("/admin", methods = ['GET'])
+def admin():
+    if not ('user' in session and session['user'] == 'admin'):
+        return redirect(url_for('Index'))
+    my_cursor = pconn.cursor()
+    sql = 'select * from products'
+    my_cursor.execute(sql)
+    account = my_cursor.fetchall()
+    proLen = len(account)
+
+    sql2 = 'select * from users'
+    my_cursor.execute(sql2)
+    users = my_cursor.fetchall()
+    userLen = len(users)
+
+    sql3 = 'select * from data'
+    my_cursor.execute(sql3)
+    bought = my_cursor.fetchall()
+    boughtLen = len(bought)
+
+    return render_template('admin.html', account = account, proLen = proLen, users = users, userLen = userLen, bought = bought, boughtLen = boughtLen)
 
 app.run(port=5000, debug=True)
